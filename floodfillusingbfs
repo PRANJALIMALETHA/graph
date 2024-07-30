@@ -1,0 +1,65 @@
+class Solution {
+     class pair{
+        int a;
+        int b;
+        pair(int a,int b)
+        {
+            this.a=a;
+            this.b=b;
+        }
+        int  first()
+        {
+            return a;
+        }
+        int second()
+        {
+            return b;
+        }
+    }
+    public void floodfill(int [][]image,int sr,int sc,int originalcolor,int color,boolean  visited[][])
+    {
+        Queue<pair>q=new LinkedList<>();
+        q.add(new pair(sr,sc));
+        while(!q.isEmpty())
+        {
+            pair curr=q.remove();
+            int a=curr.first();
+            int b=curr.second();
+            if(!visited[a][b])
+            {
+                visited[a][b]=true;
+                image[a][b]=color;
+
+
+                 int row=a;
+                 int column=b;
+                 int dx[]={-1,0,1,0};
+                 int dy[]={0,1,0,-1};
+                for(int i=0;i<4;i++)
+                {
+                    int r=row+dx[i];
+
+
+                    int c=column+dy[i];
+
+                    if(r>=0 && c>=0 && c<=image[0].length-1 && r<=image.length-1 && image[r][c]==originalcolor && visited[r][c]!=true)
+                    {
+                        q.add(new pair(r,c));
+                    }
+                }
+
+            }
+        }
+
+         
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        //breadth first search algorithm
+
+       boolean  visited[][]=new boolean [image.length][image[0].length];
+       int originalcolor=image[sr][sc];
+        floodfill(image,sr,sc,originalcolor,color,visited);
+        return image;
+        
+    }
+}
